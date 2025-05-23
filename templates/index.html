@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Cricket Score Predictor</title>
+    <meta name="google-site-verification" content="LzK-WvI8ygO962lOmoKqo0D8ezhLAP-T5RK7Mr_ShI8" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -46,16 +47,36 @@
             }
         }
 
+        function disableSameTeamOption() {
+            const batTeam = document.getElementById('batting_team').value;
+            const bowlTeam = document.getElementById('bowling_team').value;
+
+            const bowlOptions = document.getElementById('bowling_team').options;
+            const batOptions = document.getElementById('batting_team').options;
+
+            for (let i = 0; i < bowlOptions.length; i++) {
+                bowlOptions[i].disabled = (bowlOptions[i].value === batTeam && batTeam !== "");
+            }
+
+            for (let i = 0; i < batOptions.length; i++) {
+                batOptions[i].disabled = (batOptions[i].value === bowlTeam && bowlTeam !== "");
+            }
+        }
+
         $(document).ready(function() {
             updateTeamImage('Mumbai Indians', 'batting_team_image');
             updateTeamImage('Royal Challengers Bangalore', 'bowling_team_image');
 
             $('#batting_team').change(function() {
                 updateTeamImage(this.value, 'batting_team_image');
+                disableSameTeamOption();
             });
             $('#bowling_team').change(function() {
                 updateTeamImage(this.value, 'bowling_team_image');
+                disableSameTeamOption();
             });
+
+            disableSameTeamOption();
         });
     </script>
 </head>
