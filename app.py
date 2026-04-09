@@ -38,7 +38,7 @@ def index():
         current_score = int(request.form["current_score"])
         overs = float(request.form["over"])
         wickets = int(request.form["wicket"])
-        last_five = int(request.form["last_five"])  # ✅ FIXED: used string instead of variable
+        last_five = int(request.form["last_five"])  
 
         balls_left = 120 - (overs * 6)
         wicket_left = 10 - wickets
@@ -57,11 +57,8 @@ def index():
 
         result = pipe.predict(input_df)
         prediction = int(result[0])
-
-    # ✅ FIXED: removed extra space from 'index.html '
+   
     return render_template('index.html', teams=sorted(teams), venue=sorted(venues), prediction=prediction)
 
-
-# ✅ FIXED: should be "__name__ == '__main__'"
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
